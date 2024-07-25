@@ -21,18 +21,21 @@ export const postUserData = async (req , res)=>{
         const {name , email , phoneNumber} = req.body
 
         const existingName = await userData.findOne( {name :name})
+        if(!name || !email || !phoneNumber){
+            return res.status(400).json({message: "Please fill all the fields."});
+        }
         if(existingName){
-            return res.status(400).json("Already this name used.");
+            return res.status(400).json({message: "Already this name used."});
         }
 
         const existingEmail = await userData.findOne({email : email})
         if(existingEmail){
-            return res.status(400).json("Already this email used.");
+            return res.status(400).json({message: "Already this Email used."});
         }
 
         const existingPhoneNumber = await userData.findOne({phoneNumber : phoneNumber})
         if(existingPhoneNumber){
-            return res.status(400).json("Already this Phone Number used.");
+            return res.status(400).json({message: "Already this Phone Number used."});
         }       
 
 
@@ -51,7 +54,7 @@ export const postUserData = async (req , res)=>{
            })
         }
         else{
-            res.status(400).json("User Data is not Vaild Formate.")
+            res.status(400).json({message : "User Data Not Added"})
         }
 
     }catch(error){
