@@ -3,6 +3,9 @@ import api from './api/api.js'
 import { addUser } from './Slice/userDataSlice.js'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
+
+
 
 const AddNewUser = () => {
     const [name , setName] = useState()
@@ -20,12 +23,14 @@ const AddNewUser = () => {
                 email ,
                 phoneNumber
             })
+            toast.success("Data Added Successfully")
 
             dispatch(addUser(response.data))
             navigate("/")
 
         } catch (error) {
             console.log("Error in post data in api" ,error)
+           toast.error(error.response.data.message)
         }
     }
 
@@ -36,7 +41,7 @@ const AddNewUser = () => {
          <div>
          <label htmlFor="name"  className="font-serif ">Enter the name</label>
          <input 
-           value={name}
+           value={name || ""}
            onChange={(e)=>setName(e.target.value)}
            className="input input-bordered input-success w-full max-w-xs"
           type="text" 
@@ -47,7 +52,7 @@ const AddNewUser = () => {
          <div className='p-2'>
          <label htmlFor="email" className="font-serif">Enter the Email</label>
          <input
-           value={email}
+           value={email || ""}
            onChange={(e)=>setEmail(e.target.value)}
            className="input input-bordered input-success w-full max-w-xs"
           type="text" 
@@ -58,7 +63,7 @@ const AddNewUser = () => {
          <div className='ml-7'>
          <label htmlFor="phoneNumber" className="font-serif">Enter the Phone Number</label>
          <input
-          value={phoneNumber}
+          value={phoneNumber || ""}
           onChange={(e)=>setPhoneNumber(e.target.value)}
           className="input input-bordered input-success w-full max-w-xs"
           type="text" 

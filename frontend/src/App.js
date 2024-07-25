@@ -6,6 +6,7 @@ import { getUser } from "./Slice/userDataSlice.js";
 import {BrowserRouter ,Route , Routes} from "react-router-dom"
 import AddNewUser from "./AddNewUser.js";
 import UpdateUser from "./UpdateUser.js";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const disptach = useDispatch()
@@ -21,9 +22,13 @@ function App() {
          }
       }
       fetchData()
-     },[])
+     })
   return (
     <div className="App font-mono">
+      <Toaster
+       position="top-center"
+       reverseOrder={true}
+      />
       <h1 className="flex justify-center font-semibold text-4xl p-4 mb-2 text-violet-400 ">Contact Manager</h1>
       <BrowserRouter>
         <Routes>

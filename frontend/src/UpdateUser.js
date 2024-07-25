@@ -4,6 +4,7 @@ import { updateUser } from './Slice/userDataSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { selectAllData } from './Slice/userDataSlice.js'
+import toast from 'react-hot-toast'
 
 
 const UpdateUser = () => {
@@ -30,12 +31,13 @@ const UpdateUser = () => {
                 email ,
                 phoneNumber
             })
-
+            toast.success("Updated Successfully")
             dispatch(updateUser({id , name , email , phoneNumber}))
             navigate("/")
 
         } catch (error) {
             console.log("Error in post data in api" ,error)
+            toast.error(error.response.data.message)
         }
     }
   return (
